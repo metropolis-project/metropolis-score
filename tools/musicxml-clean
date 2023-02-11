@@ -1,0 +1,17 @@
+sed 's:<note [^>]*>:<note>:g' | \
+sed 's: width="[^"]*"::' | \
+sed 's: default-x="[^"]*"::' | \
+sed 's: default-y="[^"]*"::' | \
+sed 's: relative-x="[^"]*"::' | \
+sed 's: relative-y="[^"]*"::' | \
+xmlstarlet ed -u '//part-name' -v '' -d '//part-name/@print-object'  | \
+xmlstarlet ed  -d "//defaults" | \
+xmlstarlet ed  -d "//software"  | xmlstarlet ed  -d "//encoding-date"  | xmlstarlet ed  -d "//midi-instrument" | \
+xmlstarlet ed  -d "//score-instrument" | xmlstarlet ed  -d "//midi-device" | \
+xmlstarlet ed  -d "//software" | xmlstarlet ed  -d "//supports"  | \
+xmlstarlet ed  -d "//print" | xmlstarlet ed  -d "//word-font" | \
+xmlstarlet ed  -d "//lyric-font" | xmlstarlet ed -d "//page-margins"  | \
+xmlstarlet ed -d '//*[(name() = "encoding" or name() = "identification") and not(node()) and not(@*)]' | \
+xmlstarlet ed -d '//*[(name() = "encoding" or name() = "identification") and not(node()) and not(@*)]' | \
+xmlstarlet ed -d '//*[(name() = "encoding" or name() = "identification") and not(node()) and not(@*)]' | \
+xmlstarlet ed -d '//*[(name() = "encoding" or name() = "identification") and not(node()) and not(@*)]'
