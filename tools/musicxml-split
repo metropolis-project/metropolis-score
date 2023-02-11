@@ -1,0 +1,57 @@
+#!/usr/bin/env python3
+
+# extract measures from a musicxml file
+
+import sys
+import xml.etree.ElementTree as ET
+
+def extract_measures(xml_file, start, end, output_file):
+	tree = ET.parse(xml_file)
+	root = tree.getroot()
+
+	for part in root.findall("./part"):
+		measures = part.findall("measure")
+		selected_measures = measures[start-1:end]
+
+		last_attributes =  None
+		# remove measures before and including start, attributes
+		for measure in measures[:start]:
+			attributes_list = measure.findall("attributes")
+			if last_attributes is None and len(attributes_list) > 0:
+				last_attributes = attributes_list[0]
+				attributes_list = attributes_list[1:]
+			for attributes in attributes_list:
+				for child in attributes:
+					if 'number' in child.attrib:
+						last_child = last_attributes.find(child.tag + '[@number="' + str(child.attrib['number']) + '"]')
+					else:
+						last_child = last_attributes.find(child.tag)
+					if(last_child is not None):
+						last_attributes.remove(last_child)
+					last_attributes.append(child)
+			part.remove(measure)
+
+	# remove remainder of measures
+		for measure in measures[start:]:
+			part.remove(measure)
+
+		# Add attributes to first measure
+		if last_attributes is not None:
+			attributes = selected_measures[0].find('attributes')
+			if attributes is not None: 
+				selected_measures[0].remove(attributes)
+			selected_measures[0].insert(0, last_attributes)
+
+		for measure in selected_measures:
+			part.append(measure)
+
+	tree.write(output_file)
+
+if len(sys.argv) != 5:
+	print(f"Usage: python {sys.argv[0]} <xml_file> <start_measure> <end_measure> <output_file>")
+else:
+	xml_file = sys.argv[1]
+	start = int(sys.argv[2])
+	end = int(sys.argv[3])
+	output_file = sys.argv[4]
+	extract_measures(xml_file, start, end, output_file)
