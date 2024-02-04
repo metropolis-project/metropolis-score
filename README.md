@@ -23,9 +23,9 @@ Zwischenspiel:
  - [ ] Add title and notes text
 
 Furioso:
- - [ ] Map tracks to cue numbers
- - [ ] Basic transcription, split by track number or by cue number
- - [ ] move misplaced/disconnected staff measures to correct measures
+ - [x] Map tracks to cue numbers
+ - [x] Basic transcription, split by track number or by cue number
+ - [x] move misplaced/disconnected staff measures to correct measures
  - [ ] Add missing notes to have all pieces sound ok
  - [ ] Examine note by note, adding missing notes or other musical notation
  - [ ] Add title and notes text
