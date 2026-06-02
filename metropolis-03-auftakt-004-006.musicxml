@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
 <score-partwise version="4.0">
+  <work>
+    <work-title>Metropolis</work-title>
+    <work-number>03, Auftakt, 004-006</work-number>
+  </work>
   <part-list>
     <part-group type="start" number="1">
       <group-symbol>bracket</group-symbol>
